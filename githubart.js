@@ -3,20 +3,7 @@ doOnload = function() {
   canvasNode.onselectstart = function () { return false; }
   cal = new CalendarImage(canvasNode.getContext('2d'));
   canvasNode.addEventListener('click', cal.clickHandler, false);
-  cal.draw();
 }
-
-loadCalendar = function(username) {
-  $.ajax({
-    url: 'https://github.com/users/'+username+'/contributions_calendar_data',
-    success: function(data) {
-      document.getElementById('githubcalendar').value = data;
-    },
-    error: function(data) {
-      console.log('failed', data);
-    }
-  })
-};
 
 importCalendar = function(content) {
   var json = JSON.parse(content);
@@ -52,19 +39,14 @@ function padStr(i) {
 }
 
 CalendarImage = function(ctx) {
-  var today = new Date();
+  var self = this;
+  this.today = new Date();
   var SunStartsWeek = 1;
   this.levels = [0.001, 0.24, 0.45, 0.75, 1];
-  this.startingWeekDay = (today.getDay() - SunStartsWeek) % 7;
+  this.startingWeekDay = (this.today.getDay() - SunStartsWeek) % 7;
   this.ctx = ctx;
   this.days = [];
-  this.max = 4;
-  for (var i = 0; i < 366; i++) {
-    var d = new Date(today);
-    d.setDate(d.getDate() - 366 + i + 1)
-    this.days[i] = [d, 0, 0];
-  }
-  var self = this;
+  this.openTemplate('empty');
 
   this.clickHandler = function(e) {
     var x;
@@ -87,6 +69,26 @@ CalendarImage = function(ctx) {
     self.draw();
   }
 }
+
+CalendarImage.prototype.openTemplate = function(templateName) {
+  if (!templateName) {
+    return;
+  }
+  templates = {
+    'empty': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    'ilovecode': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,2,3,2,0,3,3,3,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,1,2,2,2,2,0,0,0,2,2,3,2,2,0,0,0,2,3,3,2,1,0,2,2,3,2,2,0,1,2,2,2,2,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,1,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,1,1,0,0,1,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,3,3,0,3,3,2,3,3,3,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  }
+  var t = templates[templateName];
+  var days = [];
+  for (var i = 0; i < 366; i++) {
+    var d = new Date(this.today);
+    d.setDate(d.getDate() - 366 + i + 1)
+    days[i] = [d, 0, t[i]];
+  }
+  this.max = 4;
+  this.days = days;
+  this.draw();
+};
 
 CalendarImage.prototype.draw = function() {
   var ctx = this.ctx;

@@ -10,9 +10,18 @@
 <body onload="doOnload()">
   <h1>Pimp my Github calendar</h1>
   <p>Draw the calendar the way you want it to look, turn into commits and push to github!</p>
-  <p>Click the squares on the calendar below</p>
+  <p>Click the squares on the calendar below
+  <div>
+  <select onchange="cal.openTemplate(this.value)">
+    <option value="">Open a template</option>
+    <option value="ilovecode">i love code!</option>
+    <option value="empty">empty</option>
+  </select>
+  </div>
+  </p>
   <canvas id="calendar-image" width="721" height="110">
   </canvas>
+  <h2>Importing</h2>
   <p>To import an existing github calendar, paste the contents of
     https://github.com/users/USERNAME/contributions_calendar_data in textbox below and press Import.
   </p>
@@ -20,6 +29,7 @@
     <textarea id="githubcalendar"></textarea>
   </div>
   <button href="#" onclick="importCalendar(document.getElementById('githubcalendar').value)">Import</button>
+  <h2>Saving as your calendar</h2>
   <p>
     After playing around with the calendar above, press Export to generate list of git commands that will make your github calendar
     look like the one above.

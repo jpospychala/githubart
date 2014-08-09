@@ -62,8 +62,8 @@ CalendarImage = function(ctx) {
       x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
       y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
     }
-    x -= event.srcElement.offsetLeft;
-    y -= event.srcElement.offsetTop;
+    x -= e.srcElement.offsetLeft;
+    y -= e.srcElement.offsetTop;
     var day = self.day(x, y);
     if ((day < 0) || (day >= self.days.length)) {
       return;

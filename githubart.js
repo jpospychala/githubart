@@ -62,17 +62,16 @@ CalendarImage = function(ctx) {
       x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
       y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
     }
-    if (e.srcElement) {
-      x -= e.srcElement.offsetLeft;
-      y -= e.srcElement.offsetTop;
-    }
+    var target = e.target || e.srcElement;
+    x -= target.offsetLeft;
+    y -= target.offsetTop;
     var day = self.day(x, y);
     if ((day < 0) || (day >= self.days.length)) {
       return;
     }
     self.days[day][2] = (self.days[day][2] + 1) % 5;
     self.draw();
-    document.getElementById('gitcmds').innerHTML = calendarToGitCommands(this);
+    document.getElementById('gitcmds').innerHTML = calendarToGitCommands(self);
   }
 }
 

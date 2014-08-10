@@ -65,7 +65,7 @@ CalendarImage.prototype.open = function(t) {
   this.max = 4;
   this.days = days;
   this.draw();
-  self.changed && self.changed();
+  this.changed && this.changed();
 };
 
 CalendarImage.prototype.fromGitHub = function(content) {

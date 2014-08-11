@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Github calendar editor</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="githubart.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body onload="doOnload()">
+
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Need to polish your Github account, or just missing the ascii-art times?</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <p>Customize the GitHub calendar on your profile to say something more...</p>
+          <select onchange="openTemplate(this.value)">
+            <option>Choose company name...</option>
+            <option value="ibm">IBM</option>
+            <option value="facebook">Facebook</option>
+            <option value="stripe">Stripe</option>
+            <option value="google">Google</option>
+            <option value="github">GitHub</option>
+            <option value="ilovecode">I Love Code</option>
+            <option value="javaexpert">Java Expert</option>
+            <option value="sailor">Sailor</option>
+            <option value="heart">Heart</option>
+            <option value="">empty</option>
+          </select>
+          <div style="background: url('img/preview.png') no-repeat; width: 700px; height: 360px">
+  	        <canvas id="calendar-image" width="491" height="70" style="background: white; position: relative; top: 166px; left: 200px">
+            </canvas>
+          </div>
+          <p>Tip: click the days on calendar to make commits.</p>
+      	</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-8 medium-8 columns">
+        <h5>Here are the commits you need:</h5>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="callout panel">
+              <pre><div id="gitcmds"></div></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+  </body>
+</html>

@@ -120,7 +120,7 @@ CalendarImage.prototype.position = function(day) {
 
 CalendarImage.prototype.day = function(x, y) {
   var scale = 1/this.scale;
-  var week = Math.floor((x - 150)/(13*this.scale));
+  var week = Math.floor((x - 160)/(13*this.scale));
   var day = Math.floor((y - 8)/(13*this.scale));
   var result = week*7 + day - this.startingWeekDay;
   return (day >= 0) && (day < this.days.length) ? result : undefined;
